@@ -8,3 +8,4 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^autor/all autors.php
 RewriteRule ^autor/alta autoralta.php
 RewriteRule ^autor/([0-9]+) autor.php?id=$1
+# RewriteRule ^llibreBorrar/ llibreBorrar.php
