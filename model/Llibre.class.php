@@ -23,11 +23,19 @@ class Llibre
 
     public function delete($id)
     {
-        $sql = "DELETE FROM LLIBRES WHERE ID_LLIB = '$id'";
-        echo($sql);
-        $stm = $this->$conn->prepare($sql);
-        // $stm->bindParam(1, $id);
-        $stm->execute();
+        try {
+            $sql = "DELETE FROM LLIBRES WHERE ID_LLIB = :id";
+            $stm = $this->conn->prepare($sql);
+            $stm->bindValue(':id', $id);
+            echo($sql);
+            $stm->execute();
+
+            $this->resposta->SetCorrecta(true);
+            return $this->resposta;
+        } catch (Exception $e) {
+            $this->resposta->SetCorrecta(false, 'Error eliminant: ' . $e->getMessage());
+            return $this->resposta;
+        }
     }
 
 
