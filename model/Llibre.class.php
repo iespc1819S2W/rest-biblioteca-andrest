@@ -38,9 +38,20 @@ class Llibre
         }
     }
 
+    public function autorLlibre($id_autor, $id_llibre)
+    {
+        try {
+            $sql = "INSERT INTO `lli_aut` (`FK_IDLLIB`, `FK_IDAUT`) VALUES (:id_autor, :id_llibre)";
+            $stm = $this->conn->prepare($sql);
+            $stm->bindValue(':id_autor', $id_autor);
+            $stm->bindValue(':id_llibre', $id_llibre);
+            $stm->execute();
 
-
+            $this->resposta->SetCorrecta(true);
+            return $this->resposta;
+        } catch (Exception $e) {
+            $this->resposta->SetCorrecta(false, 'Error en autorLlibre'. $e->getMessage());
+            return $this->resposta;
+        }
+    }
 }
-
-
-
