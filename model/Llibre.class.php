@@ -1,22 +1,22 @@
-<?php 
+<?php
 
 $base = __DIR__ . '/..';
 require_once("$base/lib/resposta.class.php");
 require_once("$base/lib/database.class.php");
 
 
-class Llibre 
+class Llibre
 {
 
     // Propietats
     private $conn;
     private $resposta;
-    
+
 
     // Constructor
     public function __CONSTRUCT()
     {
-        $this->conn = Database::getInstance()->getConnection();      
+        $this->conn = Database::getInstance()->getConnection();
         $this->resposta = new Resposta();
     }
 
@@ -50,8 +50,27 @@ class Llibre
             $this->resposta->SetCorrecta(true);
             return $this->resposta;
         } catch (Exception $e) {
-            $this->resposta->SetCorrecta(false, 'Error en autorLlibre'. $e->getMessage());
+            $this->resposta->SetCorrecta(false, 'Error en autorLlibre' . $e->getMessage());
             return $this->resposta;
         }
+    }
+
+    public function baixaAutorLlibre($id_llibre, $id_autor)
+    {
+        try {
+            $sql = "DELETE FROM lli_aut WHERE FK_IDLLIB = :fk_llibre AND FK_IDAUT = :fk_idaut";
+            $stm = $this->conn->prepare($sql);
+            $stm->bindValue(':fk_llibre', $id_llibre);
+            $stm->bindValue(':fk_idaut', $id_autor);
+            $stm->execute();
+
+            $this->resposta->SetCorrecta(true);
+            return $this->resposta;
+
+        } catch (Exception $e) {
+            $this->resposta->SetCorrecta(false, "Error en la baixa del autor-llibre: " . $e->getMessage());
+            return $this->resposta;
+        }
+
     }
 }
