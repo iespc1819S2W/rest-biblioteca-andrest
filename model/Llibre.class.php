@@ -73,6 +73,7 @@ class Llibre
         }
 
     }
+
     public function update($data)
     {
         try 
@@ -129,8 +130,4 @@ class Llibre
                 return $this->resposta;
 		}
     }
-
-}
-
-    
 }
