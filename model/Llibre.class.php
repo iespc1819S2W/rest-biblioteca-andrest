@@ -37,7 +37,7 @@ class Llibre
     public function mostrarTodos()
     {
         try {
-            $result = array();                        
+                                 
 			$stm = $this->conn->prepare("SELECT id_llib,titol,isbn FROM llibres  ORDER BY id_llib");
 			$stm->execute();
             $tuples=$stm->fetchAll();
@@ -103,7 +103,7 @@ class Llibre
                 /*Campos opcionales con posibilidad de valor null*/
                 $stm->bindValue(':colleccioLlib',!empty($fk_colleccioLlib)?$fk_colleccioLlib:NULL,PDO::PARAM_STR);
                 $stm->bindValue(':depertamentLlib',!empty($fk_depertamentLlib)?$fk_depertamentLlib:NULL,PDO::PARAM_STR);
-                $stm->bindValue(':fk_edit',!empty($fk_editLlib)?$fk_editLlib:NULL,PDO::PARAM_STR);
+                $stm->bindValue(':fk_edit',!empty($fk_editLlib)?$fk_editLlib:NULL,PDO::PARAM_INT);
                 $stm->bindValue(':llenguaLlib',!empty($fk_llenguaLlib)?$fk_llenguaLlib:NULL,PDO::PARAM_STR);
                 $stm->bindValue(':img_llib',!empty($img_Llib)?$img_Llib:NULL,PDO::PARAM_STR);
                 $stm->execute();
