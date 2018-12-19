@@ -61,13 +61,18 @@ class Llibre
     }
 
     //llegir un llibre amb filtres i ordenació (GET)
-    public function ordenacioLlibres($id,$anyedicio){
+    public function filtrarOrdenarLlibres($where,$orderby){
         try{
-            $orderby='ID_LLIBRES ASC';
-            $sql = "SELECT * from LLIBRES where ID_LLIBRES = :id and ANYEDICIO = :anyedicio ORDERBY $orderby";
+            
+            $sql = "SELECT * from LLIBRES $where $orderby ";
+            
+
+
+
+
             $stm = $this->conn->prepare($sql);
-            $stm->bindValue(':id' , $id);
-            $stm->bindValue(':anyedicio', $anyedicio);
+            
+            
             $stm->execute();
             $tuples=$stm->fetchAll();
             $this->resposta->setDades($tuples);    // array de tuples
