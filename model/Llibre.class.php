@@ -73,4 +73,64 @@ class Llibre
         }
 
     }
+    public function update($data)
+    {
+        try 
+		{
+                $fk_colleccioLlib=$data['fk_colleccioLlib'];
+                $fk_depertamentLlib=$data['fk_depertamentLlib'];
+                $fk_editLlib=$data['fk_editLlib'];
+                $fk_llenguaLlib=$data['fk_llenguaLlib'];
+
+                $sql = "UPDATE llibres SET 
+                    titol =:titolLlib, 
+                    numEdicio =:numEdicio,
+                    llocEdicio =:llocEdicio,
+                    anyEdicio =:anyEdicio,
+                    descrip_Llib =:descripLlib,
+                    isbn =:isbnLlib,
+                    deplegal =:deplegalLlib,
+                    signTop =:signTopLlib,
+                    datBaixa_llib =:datBaixLlib,
+                    motiuBaixa =:motiuBaixa,
+                    fk_colleccio =:fk_colleccioLlib,
+                    fk_departament =:fk_depertamentLlib,
+                    fk_idedit =:fk_editLlib,
+                    fk_llengua =:fk_llenguaLlib,
+                    img_Llib =:img_Llib;
+
+                    WHERE id_llib =:id_llib";
+
+                $stm=$this->conn->prepare($sql);
+                $stm->bindValue(':id_llib',$data['id']);
+                $stm->bindValue(':titolLlib',$data['titol']);
+                $stm->bindValue(':numEdicio',$data['numedicio']);
+                $stm->bindValue(':llocEdicio',$data['llocedicio']);
+                $stm->bindValue(':anyEdicio',$data['anyedicio'];
+                $stm->bindValue(':descripLlib',$data['descripllib']);
+                $stm->bindValue(':isbnLlib',$data['isbnLlib']);
+                $stm->bindValue(':deplegalLlib',$data['desplegalLlib']);
+                $stm->bindValue(':signTopLlib',$data['signTopLlib'];
+                $stm->bindValue(':datBaixLlib',$data['datBaixLlib'];
+                $stm->bindValue(':motiuBaixa',$data['motiuBaixa'];
+                $stm->bindValue(':fk_colleccioLlib',!empty($fk_colleccioLlib)?$fk_colleccioLlib:NULL,PDO::PARAM_STR);
+                $stm->bindValue(':fk_depertamentLlib',!empty($fk_depertamentLlib)?$fk_depertamentLlib:NULL,PDO::PARAM_STR);
+                $stm->bindValue(':fk_editLlib',!empty($fk_editLlib)?$fk_editLlib:NULL,PDO::PARAM_STR);
+                $stm->bindValue(':fk_llenguaLlib',!empty($fk_llenguaLlib)?$fk_llenguaLlib:NULL,PDO::PARAM_STR);
+                $stm->bindValue(':img_Llib',$data['img_Llib']);
+                $stm->execute();
+            
+       	        $this->resposta->setCorrecta(true);
+                return $this->resposta;
+        }
+        catch (Exception $e) 
+		{
+                $this->resposta->setCorrecta(false, "Error actualitzant: ".$e->getMessage());
+                return $this->resposta;
+		}
+    }
+
+}
+
+    
 }
