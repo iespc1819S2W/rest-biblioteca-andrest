@@ -61,7 +61,26 @@ class Llibre
     }
 
     //llegir un llibre amb filtres i ordenació (GET)
+    public function ordenacioLlibres($id,$fk_nacionalitat){
+        try{
+            $orderby='ID_LLIBRES ASC';
+            $sql = "SELECT * from LLIBRES where ID_LLIBRES = :id and FK_NACIONALITAT = :fk_nacionalitat ORDERBY $orderby";
+            $stm = $this->conn->prepare($sql);
+            $stm->bindValue(':id' , $id);
+            $stm->bindValue(':fk_nacionalitat', $fk_nacionalitat);
+            $stm->execute();
+            $tuples=$stm->fetchAll();
+            $this->resposta->setDades($tuples);    // array de tuples
+			$this->resposta->setCorrecta(true);       // La resposta es correcta        
+            return $this->resposta;
 
+            $this->resposta->SetCorrecta(true);
+            return $this->resposta;
+        }catch (Exception $e){
+            $this->resposta->setCorrecta(false,'No s\'ha trobat' . $e->getMessage());
+            return $this->resposta;
+        }
+    }
 
 }
 
