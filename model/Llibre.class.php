@@ -42,61 +42,47 @@ class Llibre
     {
         try 
 		{
-                $id_llib=$data['id_llib'];
-                $titolLlib=$data['titol'];
-                $numEdicio=$data['numedicio'];
-                $llocEdicio=$data['llocedicio'];
-                $anyEdicio=$data['anyedicio'];
-                $descripLlib=$data['descripllib'];
-                $isbnLlib=$data['isbn'];
-                $desplegalLlib=$data['desplegal'];
-                $signTopLlib=$data['signtop'];
-                $datBaixLlib=$data['datbaix_llib'];
-                $motiuBaixa=$data['motiubaixa'];
-                $fk_colleccioLlib=$data['fk_colleccio'];
-                $fk_depertamentLlib=$data['fk_depertament'];
-                $fk_editLlib=$data['fk_edit'];
-                $fk_llenguaLlib=$data['fk_llengua'];
-                $img_Llib=$data['img_Llib'];
+                $fk_colleccioLlib=$data['fk_colleccioLlib'];
+                $fk_depertamentLlib=$data['fk_depertamentLlib'];
+                $fk_editLlib=$data['fk_editLlib'];
+                $fk_llenguaLlib=$data['fk_llenguaLlib'];
 
                 $sql = "UPDATE llibres SET 
-                    titolLlib =:titolLlib, 
+                    titol =:titolLlib, 
                     numEdicio =:numEdicio,
                     llocEdicio =:llocEdicio,
                     anyEdicio =:anyEdicio,
-                    descripLlib =:descripLlib,
-                    isbnLlib =:isbnLlib,
-                    desplegalLlib =:desplegalLlib,
-                    signTopLlib =:signTopLlib,
-                    datBaixLlib =:datBaixLlib,
+                    descrip_Llib =:descripLlib,
+                    isbn =:isbnLlib,
+                    deplegal =:deplegalLlib,
+                    signTop =:signTopLlib,
+                    datBaixa_llib =:datBaixLlib,
                     motiuBaixa =:motiuBaixa,
-                    fk_colleccioLlib =:fk_colleccioLlib,
-                    fk_depertamentLlib =:fk_depertamentLlib,
-                    fk_editLlib =:fk_editLlib,
-                    fk_llenguaLlib =:fk_llenguaLlib,
+                    fk_colleccio =:fk_colleccioLlib,
+                    fk_departament =:fk_depertamentLlib,
+                    fk_idedit =:fk_editLlib,
+                    fk_llengua =:fk_llenguaLlib,
                     img_Llib =:img_Llib;
 
-                    WHERE id_aut =:id_aut";
+                    WHERE id_llib =:id_llib";
 
-                // UPDATE `autors` SET `NOM_AUT` = '$valorGuardar', `FK_NACIONALITAT` = null WHERE `ID_AUT` = $idguardar";
-                
                 $stm=$this->conn->prepare($sql);
-                $stm->bindValue(':id_aut',$id_aut);
-                $stm->bindValue(':titolLlib',$titolLlib);
-                $stm->bindValue(':numEdicio',$numEdicio);
-                $stm->bindValue(':llocEdicio',$llocEdicio);
-                $stm->bindValue(':anyEdicio',$anyEdicio);
-                $stm->bindValue(':descripLlib',$descripLlib);
-                $stm->bindValue(':isbnLlib',$isbnLlib);
-                $stm->bindValue(':desplegalLlib',$desplegalLlib);
-                $stm->bindValue(':signTopLlib',$signTopLlib);
-                $stm->bindValue(':datBaixLlib',$datBaixLlib);
-                $stm->bindValue(':motiuBaixa',$motiuBaixa);
+                $stm->bindValue(':id_llib',$data['id']);
+                $stm->bindValue(':titolLlib',$data['titol']);
+                $stm->bindValue(':numEdicio',$data['numedicio']);
+                $stm->bindValue(':llocEdicio',$data['llocedicio']);
+                $stm->bindValue(':anyEdicio',$data['anyedicio'];
+                $stm->bindValue(':descripLlib',$data['descripllib']);
+                $stm->bindValue(':isbnLlib',$data['isbnLlib']);
+                $stm->bindValue(':deplegalLlib',$data['desplegalLlib']);
+                $stm->bindValue(':signTopLlib',$data['signTopLlib'];
+                $stm->bindValue(':datBaixLlib',$data['datBaixLlib'];
+                $stm->bindValue(':motiuBaixa',$data['motiuBaixa'];
                 $stm->bindValue(':fk_colleccioLlib',!empty($fk_colleccioLlib)?$fk_colleccioLlib:NULL,PDO::PARAM_STR);
                 $stm->bindValue(':fk_depertamentLlib',!empty($fk_depertamentLlib)?$fk_depertamentLlib:NULL,PDO::PARAM_STR);
                 $stm->bindValue(':fk_editLlib',!empty($fk_editLlib)?$fk_editLlib:NULL,PDO::PARAM_STR);
                 $stm->bindValue(':fk_llenguaLlib',!empty($fk_llenguaLlib)?$fk_llenguaLlib:NULL,PDO::PARAM_STR);
-                $stm->bindValue(':img_Llib',$img_Llib);
+                $stm->bindValue(':img_Llib',$data['img_Llib']);
                 $stm->execute();
             
        	        $this->resposta->setCorrecta(true);
