@@ -59,9 +59,9 @@ class Llibre
 		try 
 		{
                 $sql = "SELECT max(id_llib) as N from llibres";
-                $stm=$this->conn->prepare($sql);
-                $stm->execute();
-                $row=$stm->fetch();
+                $uno=$this->conn->prepare($sql);
+                $uno->execute();
+                $row=$uno->fetch();
                 $id_llib=$row["N"]+1;
 
                 $insertar = "INSERT INTO llibres
@@ -97,8 +97,9 @@ class Llibre
                 $stm->bindValue(':isbn',$isbnLlib);
                 $stm->bindValue(':desple',$desplegalLlib);
                 $stm->bindValue(':signt',$signTopLlib);
-                $stm->bindValue(':dbaixa',$datBaixLlib);
-                $stm->bindValue(':mbaixa',$motiuBaixa);
+
+                $stm->bindValue(':dbaixa',!empty($datBaixLlib)?$datBaixLlib:NULL,PDO::PARAM_STR);
+                $stm->bindValue(':mbaixa',!empty($motiuBaixa)?$motiuBaixa:NULL,PDO::PARAM_STR);
 
                 /*Campos opcionales con posibilidad de valor null*/
                 $stm->bindValue(':colleccioLlib',!empty($fk_colleccioLlib)?$fk_colleccioLlib:NULL,PDO::PARAM_STR);

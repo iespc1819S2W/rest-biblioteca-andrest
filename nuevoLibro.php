@@ -4,7 +4,7 @@
  require_once("$base/model/Llibre.class.php");
  $llibre = new Llibre();
  if (isset($_POST["titol"])) {
-    
+    $estado="executando";
     $dades = array(
         "titol" => (isset($_POST['titol'])?$_POST['titol'] : ""),
         "numedicio" => (isset($_POST['numedicio'])?$_POST['numedicio'] : ""),
@@ -23,11 +23,11 @@
         "img_Llib" => (isset($_POST['img_Llib'])?$_POST['img_Llib'] : "")
     );
      $res=$llibre->altaLlibre($dades);
- } else {
-     $res=new Resposta();
-     $res->SetCorrecta(false,"titol requerit");
- }
- header('Content-type: application/json');
- echo json_encode($res); 
+    if(!$res->correcta){
+        $estado = "Error insertant Llibre: ".$res->missatge;
+    }else{
+        $estado = "ok";
+    }
 
- ?>
+ }     header('Content-type: application/json');
+ echo json_encode($estado); 
