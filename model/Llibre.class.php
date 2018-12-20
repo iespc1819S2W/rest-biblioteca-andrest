@@ -64,10 +64,10 @@ class Llibre
                 $row=$uno->fetch();
                 $id_llib=$row["N"]+1;
 
-                $insertar = "INSERT INTO llibres
-                            (id_llib,titol,numedicio,llocedicio,anyedicio,descrip_llib,isbn,deplegal,signtop,datbaixa_llib,motiubaixa,fk_colleccio,fk_departament,fk_idedit,fk_llengua,img_llib)
-                            VALUES (:id,:nom,:nedi,:ledi,:aedi,:descrip,:isbn,:desple,:signt,:dbaixa,:mbaixa,:colleccioLlib,:depertamentLlib,:edit,:llenguaLlib,:img_llib)";
-                
+                $insertar = "INSERT INTO llibres (id_llib,titol,numedicio,llocedicio,anyedicio,descrip_llib,isbn,deplegal,signtop,datbaixa_llib,motiubaixa,fk_colleccio,fk_departament,fk_idedit,fk_llengua,img_llib)
+                VALUES (:id,:nom,:nedi,:ledi,:aedi,:descrip,:isbn,:desple,:signt,:dbaixa,:mbaixa,:colleccioLlib,:depertamentLlib,:edit,:llenguaLlib,:img_llib)";
+                /*INSERT INTO llibres(id_llib,titol,numedicio,llocedicio,anyedicio,descrip_llib,isbn,deplegal,signtop,datbaixa_llib,motiubaixa,fk_colleccio,fk_departament,fk_idedit,fk_llengua,img_llib)VALUES (8203,'Joselito Prueba',1,'BARCELONA',2005,'24 CM, 262 PAG.',978-84-7827-391-1,NULL,'INF-BRA-NEC',NULL,NULL,NULL,NULL,133,NULL,NULL);
+                */
                 $stm=$this->conn->prepare($insertar);
                 
                 $titolLlib=$data['titol'];
@@ -95,8 +95,8 @@ class Llibre
                 $stm->bindValue(':aedi',$anyEdicio);
                 $stm->bindValue(':descrip',$descripLlib);
                 $stm->bindValue(':isbn',$isbnLlib);
-                $stm->bindValue(':desple',$desplegalLlib);
-                $stm->bindValue(':signt',$signTopLlib);
+                $stm->bindValue(':desple',!empty($desplegalLlib)?$desplegalLlib:NULL,PDO::PARAM_STR);
+                $stm->bindValue(':signt',!empty($signTopLlib)?$signTopLlib:NULL,PDO::PARAM_STR);
 
                 $stm->bindValue(':dbaixa',!empty($datBaixLlib)?$datBaixLlib:NULL,PDO::PARAM_STR);
                 $stm->bindValue(':mbaixa',!empty($motiuBaixa)?$motiuBaixa:NULL,PDO::PARAM_STR);

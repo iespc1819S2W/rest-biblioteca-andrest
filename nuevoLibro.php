@@ -3,8 +3,9 @@
  $base = __DIR__;
  require_once("$base/model/Llibre.class.php");
  $llibre = new Llibre();
- if (isset($_POST["titol"])) {
-    $estado="executando";
+ $estado = "sense dades";
+ if (isset($_POST['titol'])) {
+    $estado = "executando";
     $dades = array(
         "titol" => (isset($_POST['titol'])?$_POST['titol'] : ""),
         "numedicio" => (isset($_POST['numedicio'])?$_POST['numedicio'] : ""),
@@ -22,12 +23,13 @@
         "fk_llengua" => (isset($_POST['fk_llenguaLlib'])?$_POST['fk_llenguaLlib'] : ""),
         "img_Llib" => (isset($_POST['img_Llib'])?$_POST['img_Llib'] : "")
     );
-     $res=$llibre->altaLlibre($dades);
+     $res = $llibre->altaLlibre($dades);
     if(!$res->correcta){
         $estado = "Error insertant Llibre: ".$res->missatge;
-    }else{
+    } else {
         $estado = "ok";
     }
 
- }     header('Content-type: application/json');
+ }        header('Content-type: application/json');
+
  echo json_encode($estado); 
