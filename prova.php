@@ -11,7 +11,7 @@ $base = __DIR__;
      echo $res->missatge;
  }
 
- $autor->insert(array("nom_aut"=>"Tomeu Campaner","fk_nacionalitat"=>"MURERA"));   //produira un error
+//  $autor->insert(array("nom_aut"=>"Tomeu Campaner","fk_nacionalitat"=>"MURERA"));   //produira un error
  if (!$res->correcta) {
     echo "Error insertant";  // Error per l'usuari
     error_log($res->missatge,3,"$base/log/errors.log");  // Error per noltros
