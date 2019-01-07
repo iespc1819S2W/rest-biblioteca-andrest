@@ -8,7 +8,6 @@ require_once("$base/lib/database.class.php");
 class Llibre
 {
 
-    // Propietats
     private $conn;
     private $resposta;
 
@@ -21,6 +20,7 @@ class Llibre
     }
 
 
+    // Funcions
     public function delete($id)
     {
         try {
@@ -34,6 +34,28 @@ class Llibre
             return $this->resposta;
         } catch (Exception $e) {
             $this->resposta->SetCorrecta(false, 'Error eliminant: ' . $e->getMessage());
+            return $this->resposta;
+        }
+
+    }
+    
+    public function llegirLlibrePK($id)
+    {
+        try{
+            $sql = "SELECT * FROM LLIBRES where ID_LLIB = :id";
+            $stm = $this->conn->prepare($sql);
+            $stm->bindValue(':id' , $id);
+            $stm->execute();
+
+            $tuples=$stm->fetchAll();
+            $this->resposta->setDades($tuples);    // array de tuples
+			$this->resposta->setCorrecta(true);       // La resposta es correcta        
+            return $this->resposta;
+
+            $this->resposta->SetCorrecta(true);
+            return $this->resposta;
+        }catch (Exception $e){
+            $this->resposta->setCorrecta(false,'No s\'ha trobat' . $e->getMessage());
             return $this->resposta;
         }
     }
@@ -82,7 +104,6 @@ class Llibre
                 $fk_depertamentLlib=$data['fk_depertamentLlib'];
                 $fk_editLlib=$data['fk_editLlib'];
                 $fk_llenguaLlib=$data['fk_llenguaLlib'];
-
                 $sql = "UPDATE llibres SET 
                     titol =:titolLlib, 
                     numEdicio =:numEdicio,
@@ -101,7 +122,6 @@ class Llibre
                     img_Llib =:img_Llib;
 
                     WHERE id_llib =:id_llib";
-
                 $stm=$this->conn->prepare($sql);
                 $stm->bindValue(':id_llib',$data['id']);
                 $stm->bindValue(':titolLlib',$data['titol']);
@@ -129,6 +149,29 @@ class Llibre
                 $this->resposta->setCorrecta(false, "Error actualitzant: ".$e->getMessage());
                 return $this->resposta;
 		}
+    }
+
+    public function filtrarOrdenarLlibres($where,$orderby)
+    {
+        try{
+            
+            $sql = "SELECT * from LLIBRES $where $orderby ";
+
+            $stm = $this->conn->prepare($sql);
+            
+            
+            $stm->execute();
+            $tuples=$stm->fetchAll();
+            $this->resposta->setDades($tuples);    // array de tuples
+			$this->resposta->setCorrecta(true);       // La resposta es correcta        
+            return $this->resposta;
+
+            $this->resposta->SetCorrecta(true);
+            return $this->resposta;
+        }catch (Exception $e){
+            $this->resposta->setCorrecta(false,'No s\'ha trobat' . $e->getMessage());
+            return $this->resposta;
+        }
     }
 
     public function llegirAutorsLlibre($id_llibre)
