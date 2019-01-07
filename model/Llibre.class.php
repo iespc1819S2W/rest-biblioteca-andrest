@@ -137,9 +137,9 @@ class Llibre
                     fk_departament =:fk_depertamentLlib,
                     fk_idedit =:fk_editLlib,
                     fk_llengua =:fk_llenguaLlib,
-                    img_Llib =:img_Llib;
-
+                    img_Llib =:img_Llib
                     WHERE id_llib =:id_llib";
+
                 $stm=$this->conn->prepare($sql);
                 $stm->bindValue(':id_llib',$data['id']);
                 $stm->bindValue(':titolLlib',$data['titol']);
@@ -226,7 +226,7 @@ class Llibre
                 $id_llib=$row["N"]+1;
 
                 $insertar = "INSERT INTO llibres (id_llib,titol,numedicio,llocedicio,anyedicio,descrip_llib,isbn,deplegal,signtop,datbaixa_llib,motiubaixa,fk_colleccio,fk_departament,fk_idedit,fk_llengua,img_llib)
-                VALUES (:id,:nom,:nedi,:ledi,:aedi,:descrip,:isbn,:desple,:signt,:dbaixa,:mbaixa,:colleccioLlib,:depertamentLlib,:edit,:llenguaLlib,:img_llib)";
+                VALUES (:id,:nom,:nedi,:ledi,:aedi,:descrip,:isbn,:desple,:signt,:dbaixa,:mbaixa,:colleccioLlib,:depertamentLlib,:fk_edit,:llenguaLlib,:img_llib)";
                 /*INSERT INTO llibres(id_llib,titol,numedicio,llocedicio,anyedicio,descrip_llib,isbn,deplegal,signtop,datbaixa_llib,motiubaixa,fk_colleccio,fk_departament,fk_idedit,fk_llengua,img_llib)VALUES (8203,'Joselito Prueba',1,'BARCELONA',2005,'24 CM, 262 PAG.',978-84-7827-391-1,NULL,'INF-BRA-NEC',NULL,NULL,NULL,NULL,133,NULL,NULL);
                 */
                 $stm=$this->conn->prepare($insertar);
